@@ -1,26 +1,25 @@
-import * as fs from "fs";
-import { fileName, findingIps } from "./Utils/constants.js";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
-const logReadStream = fs.createReadStream(fileName, "utf-8");
+const checkArgs = () => {
+   const options = yargs(hideBin(process.argv))
+      .usage("Usage: -p <path>")
+      .option("p", {
+         alias: "path",
+         describe: "Path to file",
+         type: "string",
+         demandOption: false,
+      })
+      .usage("Usage: -i <ip1, ip2>")
+      .option("s", {
+         alias: "strings",
+         describe: "Words list for search",
+         type: "array",
+         demandOption: false,
+      }).argv;
+   const { strings, path } = options;
 
-const logWriteStreams = findingIps.map((ip) => {
-   return {
-      ip,
-      writeStream: fs.createWriteStream(ip + "_requests.log", {
-         flags: "a",
-         encoding: "utf8",
-      }),
-   };
-});
+   return { strings, path };
+};
 
-const getRegExp = (startWord) => new RegExp(`${startWord}.*\n`, "g");
-
-logReadStream.on("data", (chunk) => {
-   const chunkString = chunk.toString();
-
-   logWriteStreams.forEach((stream) => {
-      const regExp = getRegExp(stream.ip);
-      const handledString = chunkString.match(regExp).join("");
-      stream.writeStream.write(handledString);
-   });
-});
+console.log(checkArgs());
