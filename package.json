@@ -1,9 +1,10 @@
 {
    "dependencies": {
+      "inquirer": "^8.2.2",
       "yargs": "^17.4.0"
    },
    "type": "module",
    "scripts": {
-      "test": "node index.js -s 127.1.1.0, 125.1.1.0"
+      "test": "node index.js -p access.log"
    }
 }
