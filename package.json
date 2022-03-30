@@ -5,6 +5,6 @@
    },
    "type": "module",
    "scripts": {
-      "test": "node index.js -p access.log"
+      "test": "node index.js"
    }
 }
