@@ -1,9 +1,10 @@
 {
-	"dependencies": {
-	},
-	"type": "module",
-	"scripts": {
-	  "test": "node index.js"
-	}
- }
- 
+   "dependencies": {
+      "inquirer": "^8.2.2",
+      "yargs": "^17.4.0"
+   },
+   "type": "module",
+   "scripts": {
+      "test": "node index.js"
+   }
+}
